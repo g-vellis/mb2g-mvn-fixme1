@@ -8,21 +8,24 @@
     <artifactId>mb2g-mvn-fixme1</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <url>http://www.your.site.com/</url>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>11</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
+        <junit.version>5.7.0</junit.version>
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-            <scope>test</scope>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>junit</groupId>-->
+<!--            <artifactId>junit</artifactId>-->
+<!--            <version>4.12</version>-->
+<!--            <scope>test</scope>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
@@ -48,12 +51,13 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.18</version>
+<!--                <version>2.22.2</version>-->
+                <version>3.0.0-M5</version> <!-- Any maven-surefire-plugin release prior to 2.2.0 does not support JUnit 5 . M2 here stands for Milestone release. -->
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>3.0.0-M2</version>
+                <version>2.22.2</version>
                 <executions>
                     <execution>
                         <goals>
@@ -63,7 +67,12 @@
                     </execution>
                 </executions>
             </plugin>
-
+            <!-- we override the maven-site-plugin version. -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.7.1</version>
+            </plugin>
         </plugins>
     </build>
 
@@ -72,7 +81,22 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>2.22.0</version>
+                <version>2.22.2</version>
+            </plugin>
+
+            <!-- Unable to locate Test Source XRef to link to - DISABLED. -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+                <version>2.3</version>
+            </plugin>
+
+            <!-- Report plugin org.apache.maven.plugins:maven-project-info-reports-plugin has an empty version. -->
+            <plugin>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>3.0.0</version>
             </plugin>
         </plugins>
     </reporting>
+
+</project>
